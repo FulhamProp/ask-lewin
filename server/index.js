@@ -76,7 +76,22 @@ Hard rules:
 - Verdict must be one sentence, opinionated, direct, written in first person as Lewin — no waffle
 - Do not include sold STC properties unless they are an exceptional match and flag them clearly`;
 
-  const userMsg = `Buyer brief: "${brief.trim()}"\n\nCurrent listings:\n${JSON.stringify(LISTINGS.map(l => ({ id:l.id, street:l.street, area:l.area, price:l.price, type:l.type, beds:l.beds, baths:l.baths, status:l.status, reduced:l.reduced, garden:l.garden, gardenFt:l.gardenFt, parking:l.parking, chainFree:l.chainFree, condition:l.condition, features:l.features })), null, 0)}`;
+  const userMsg = `Buyer brief: "${brief.trim()}"\n\nListings:\n${JSON.stringify(LISTINGS.map(l => ({
+    id: l.id,
+    street: l.street,
+    area: l.area,
+    price: l.price,
+    type: l.type,
+    beds: l.beds,
+    baths: l.baths,
+    reduced: l.reduced,
+    garden: l.garden,
+    gardenFt: l.gardenFt,
+    parking: l.parking,
+    chainFree: l.chainFree,
+    condition: l.condition,
+    features: l.features.slice(0, 2),
+  })))}`;
 
   try {
     const aiRes = await fetch('https://api.anthropic.com/v1/messages', {
@@ -87,7 +102,7 @@ Hard rules:
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
+        model: 'claude-haiku-4-5-20251001',
         max_tokens: 1000,
         system,
         messages: [{ role: 'user', content: userMsg }],
@@ -95,7 +110,11 @@ Hard rules:
       timeout: 30000,
     });
 
-    if (!aiRes.ok) throw new Error(`Anthropic returned ${aiRes.status}`);
+    if (!aiRes.ok) {
+      const errText = await aiRes.text();
+      console.error('Anthropic error body:', errText);
+      throw new Error(`Anthropic returned ${aiRes.status}: ${errText.slice(0, 200)}`);
+    }
     const aiData = await aiRes.json();
     const text = aiData.content.filter(b => b.type === 'text').map(b => b.text).join('');
     const clean = text.replace(/```json|```/g, '').trim();
