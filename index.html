@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Ask Lewin — Find Your Perfect Fulham Home</title>
+<meta name="description" content="Describe your ideal SW6 home in plain English. AI matches you to real Knight Frank Fulham listings with honest commentary and direct Rightmove links."/>
+<meta property="og:title" content="Ask Lewin — Find Your Perfect Fulham Home"/>
+<meta property="og:description" content="Skip the portal. Describe what you want — matched to real Knight Frank SW6 listings with honest commentary."/>
+<meta property="og:image" content="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0e0c0a; --bg2:#141210; --card:#1a1714; --card2:#201c16;
+  --gold:#c8a86a; --gold2:#e9cb8e; --gold3:#a07840;
+  --cream:#f4eee2; --muted:#7a7268; --faint:#3a3226; --line:#252018;
+  --red:#c0584a; --amber:#cc9650; --green:#6f9470;
+  --sans:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;
+  --serif:'EB Garamond','Georgia',serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--cream);font-family:var(--sans);line-height:1.55;min-height:100vh;}
+a{color:inherit;text-decoration:none;}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 28px;height:56px;display:flex;justify-content:space-between;align-items:center;background:rgba(14,12,10,.88);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--line);}
+.nav-brand{font-family:var(--serif);font-size:20px;color:var(--cream);}
+.nav-brand span{color:var(--gold2);}
+.nav-right{display:flex;gap:20px;align-items:center;font-size:13px;}
+.nav-right a{color:var(--muted);transition:color .2s;}
+.nav-right a:hover{color:var(--cream);}
+.nav-cta{padding:7px 16px;border-radius:20px;background:var(--gold);color:var(--bg)!important;font-weight:600;font-size:12px;}
+.nav-cta:hover{background:var(--gold2)!important;}
+
+/* HERO - Victorian Fulham terraces */
+.hero{
+  position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:80px 24px 60px;
+  background:
+    linear-gradient(180deg,rgba(14,12,10,.25) 0%,rgba(14,12,10,.65) 55%,rgba(14,12,10,1) 100%),
+    url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1800&q=80&auto=format&fit=crop')
+    center 40%/cover no-repeat;
+}
+.hero-inner{max-width:700px;margin:0 auto;width:100%;text-align:center;}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;display:flex;align-items:center;justify-content:center;gap:10px;}
+.eyebrow::before,.eyebrow::after{content:'';flex:1;max-width:40px;height:0.5px;background:var(--gold3);}
+h1{font-family:var(--serif);font-size:clamp(42px,8vw,72px);font-weight:400;line-height:1.0;letter-spacing:-.02em;margin-bottom:20px;}
+h1 .italic{font-style:italic;color:var(--gold2);}
+.hero-sub{font-size:clamp(14px,2vw,17px);color:rgba(244,238,226,.65);max-width:440px;margin:0 auto 36px;line-height:1.6;}
+
+/* SEARCH */
+.search-wrap{position:relative;max-width:580px;margin:0 auto;}
+.search-wrap textarea{width:100%;padding:20px 60px 20px 24px;font-family:var(--sans);font-size:16px;line-height:1.55;background:rgba(26,23,20,.85);border:1.5px solid rgba(200,168,106,.25);border-radius:20px;color:var(--cream);outline:none;resize:none;min-height:72px;backdrop-filter:blur(10px);transition:border-color .25s;}
+.search-wrap textarea::placeholder{color:rgba(244,238,226,.32);}
+.search-wrap textarea:focus{border-color:var(--gold);}
+.search-wrap textarea:disabled{opacity:.4;}
+.go-btn{position:absolute;right:12px;bottom:12px;width:40px;height:40px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;color:var(--bg);font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;}
+.go-btn:hover{background:var(--gold2);transform:scale(1.05);}
+.go-btn:disabled{opacity:.3;cursor:not-allowed;transform:none;}
+.chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:16px;max-width:580px;margin-left:auto;margin-right:auto;}
+.chip{font-size:12px;padding:6px 14px;border-radius:20px;border:0.5px solid rgba(200,168,106,.2);color:rgba(244,238,226,.5);cursor:pointer;background:transparent;font-family:var(--sans);transition:border-color .2s,color .2s;}
+.chip:hover{border-color:var(--gold);color:var(--gold2);}
+.scroll-hint{margin-top:32px;font-family:var(--sans);font-size:11px;color:rgba(244,238,226,.3);letter-spacing:.1em;animation:bob 2.5s ease-in-out infinite;}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+
+/* HOW */
+.how{max-width:800px;margin:0 auto;padding:80px 24px;text-align:center;border-bottom:0.5px solid var(--line);}
+.section-eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.section-title{font-family:var(--serif);font-size:clamp(24px,4vw,36px);font-weight:400;margin-bottom:10px;}
+.section-sub{font-size:14px;color:var(--muted);margin-bottom:48px;max-width:440px;margin-left:auto;margin-right:auto;}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+.step{padding:22px 16px;background:var(--card);border:0.5px solid var(--line);border-radius:12px;}
+.step-num{width:36px;height:36px;border-radius:50%;border:1px solid var(--gold3);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:17px;color:var(--gold);margin:0 auto 12px;}
+.step h3{font-family:var(--serif);font-size:17px;font-weight:400;margin-bottom:7px;}
+.step p{font-size:12px;color:var(--muted);line-height:1.6;}
+
+/* RESULTS */
+.results-section{max-width:720px;margin:0 auto;padding:0 24px 80px;}
+.brief-bar{background:var(--card2);border-left:2px solid var(--gold);border-radius:8px;padding:12px 16px;margin-bottom:20px;}
+.brief-bar .bl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:3px;}
+.brief-bar .bt{font-size:14px;color:#9a9080;line-height:1.5;}
+.results-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+.results-count{font-size:13px;color:var(--gold);}
+.reset-btn{font-size:12px;color:var(--muted);background:none;border:0.5px solid var(--faint);border-radius:6px;padding:5px 12px;cursor:pointer;font-family:var(--sans);}
+.reset-btn:hover{color:var(--gold);border-color:var(--gold);}
+
+/* BUDGET WARNING */
+.budget-warning{margin-bottom:18px;padding:14px 18px;background:rgba(204,150,80,.1);border:1px solid rgba(204,150,80,.3);border-radius:10px;display:flex;gap:12px;align-items:flex-start;}
+.bw-icon{font-size:20px;flex-shrink:0;margin-top:1px;}
+.bw-text{font-size:13px;color:rgba(244,238,226,.85);line-height:1.6;}
+.bw-text strong{color:var(--amber);display:block;margin-bottom:4px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;}
+
+/* LISTING CARD */
+.listing-card{background:var(--card);border:0.5px solid var(--line);border-radius:14px;margin-bottom:16px;overflow:hidden;transition:border-color .2s;}
+.listing-card:hover{border-color:var(--faint);}
+.card-img{width:100%;height:180px;object-fit:cover;display:block;background:var(--card2);}
+.card-img-placeholder{width:100%;height:140px;background:linear-gradient(135deg,var(--card2) 0%,var(--card) 100%);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:17px;color:var(--faint);font-style:italic;}
+.card-top{padding:14px 18px 8px;display:flex;align-items:flex-start;gap:12px;}
+.score-ring{flex-shrink:0;width:48px;height:48px;border-radius:50%;border:2.5px solid;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
+.score-ring.hi{border-color:#5a8a5a;color:#7ab87a;}
+.score-ring.md{border-color:var(--gold);color:var(--gold2);}
+.score-ring.lo{border-color:#7a4a3a;color:var(--red);}
+.card-info{flex:1;min-width:0;}
+.card-street{font-family:var(--serif);font-size:18px;margin-bottom:2px;}
+.card-hl{font-size:12px;color:var(--muted);font-style:italic;}
+.badge-stc{font-size:9px;background:rgba(204,150,80,.15);color:var(--amber);border:0.5px solid rgba(204,150,80,.3);border-radius:3px;padding:2px 6px;text-transform:uppercase;margin-left:6px;vertical-align:middle;}
+.badge-red{font-size:9px;background:rgba(80,150,80,.15);color:var(--green);border:0.5px solid rgba(80,150,80,.3);border-radius:3px;padding:2px 6px;text-transform:uppercase;margin-left:6px;vertical-align:middle;}
+.card-price{font-size:19px;color:var(--gold2);font-weight:600;text-align:right;white-space:nowrap;flex-shrink:0;}
+.card-body{padding:0 18px 16px;}
+.card-specs{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px;font-size:12px;color:var(--muted);padding-top:2px;}
+.pc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.pc-box{border-radius:8px;padding:10px 12px;}
+.pros{background:rgba(74,120,74,.1);border:0.5px solid rgba(74,120,74,.18);}
+.cons{background:rgba(160,80,60,.1);border:0.5px solid rgba(160,80,60,.18);}
+.pc-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;font-weight:600;}
+.pros .pc-label{color:#6a9a6a;}
+.cons .pc-label{color:#c07060;}
+.pc-item{font-size:12px;color:var(--muted);margin-bottom:3px;display:flex;gap:5px;align-items:flex-start;line-height:1.4;}
+.pros .pc-item::before{content:"✓";color:#6a9a6a;flex-shrink:0;font-size:11px;margin-top:1px;}
+.cons .pc-item::before{content:"⚠";color:#c07060;flex-shrink:0;font-size:10px;margin-top:2px;}
+.verdict{font-family:var(--serif);font-size:15px;color:rgba(244,238,226,.7);line-height:1.7;padding:12px 14px;background:rgba(255,255,255,.025);border-radius:7px;border-left:2px solid var(--faint);margin-bottom:12px;font-style:italic;}
+.card-actions{display:flex;gap:10px;}
+.btn-rm{flex:1;padding:11px;border-radius:9px;border:0.5px solid var(--faint);background:transparent;color:var(--muted);font-size:13px;cursor:pointer;font-family:var(--sans);display:flex;align-items:center;justify-content:center;gap:5px;transition:border-color .2s,color .2s;text-decoration:none;}
+.btn-rm:hover{border-color:var(--gold3);color:var(--gold);}
+.btn-lewin{flex:1;padding:11px;border-radius:9px;border:none;background:var(--gold);color:var(--bg);font-size:13px;font-weight:700;cursor:pointer;font-family:var(--sans);transition:background .2s;}
+.btn-lewin:hover{background:var(--gold2);}
+
+/* LOADING */
+.loading-state{display:flex;flex-direction:column;align-items:center;padding:64px 20px;gap:14px;text-align:center;}
+.spinner{width:28px;height:28px;border:2.5px solid var(--line);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-label{font-size:14px;color:var(--muted);}
+.load-brief{font-size:13px;color:var(--faint);font-style:italic;max-width:380px;}
+.error-state{text-align:center;padding:56px 20px;}
+.error-state p{font-size:14px;color:var(--muted);margin-bottom:18px;}
+.error-state button{padding:10px 22px;border-radius:8px;border:0.5px solid var(--faint);background:transparent;color:var(--muted);font-size:13px;cursor:pointer;font-family:var(--sans);}
+
+/* ABOUT + CAPTURE */
+.about{max-width:720px;margin:0 auto;padding:0 24px 80px;text-align:center;}
+.about-card{background:var(--card);border:0.5px solid var(--line);border-radius:16px;padding:40px 32px;}
+.avatar{width:64px;height:64px;border-radius:50%;border:2px solid var(--gold);background:var(--card2);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:22px;color:var(--gold);margin:0 auto 16px;}
+.about-name{font-family:var(--serif);font-size:22px;margin-bottom:4px;}
+.about-title{font-size:13px;color:var(--muted);margin-bottom:22px;}
+.about-quote{font-family:var(--serif);font-size:17px;font-style:italic;color:rgba(244,238,226,.72);max-width:480px;margin:0 auto 32px;line-height:1.7;}
+.about-quote em{color:var(--gold2);font-style:normal;}
+.capture-title{font-family:var(--serif);font-size:22px;font-weight:400;margin-bottom:8px;}
+.capture-sub{font-size:14px;color:var(--muted);margin-bottom:24px;}
+.capture-form{display:flex;gap:8px;max-width:380px;margin:0 auto;flex-wrap:wrap;justify-content:center;}
+.capture-form input{flex:1;min-width:200px;padding:13px 18px;border-radius:10px;border:0.5px solid var(--faint);background:var(--bg);color:var(--cream);font-size:14px;outline:none;font-family:var(--sans);transition:border-color .2s;}
+.capture-form input:focus{border-color:var(--gold);}
+.capture-form button{padding:13px 22px;border-radius:10px;border:none;background:var(--gold);color:var(--bg);font-size:14px;font-weight:700;cursor:pointer;font-family:var(--sans);}
+.capture-form button:hover{background:var(--gold2);}
+.capture-note{font-size:11px;color:var(--faint);margin-top:10px;}
+.capture-success{font-size:14px;color:var(--green);margin-top:14px;display:none;font-family:var(--serif);font-style:italic;}
+
+footer{border-top:0.5px solid var(--line);padding:28px 24px 48px;max-width:720px;margin:0 auto;font-size:12px;color:var(--faint);text-align:center;line-height:1.8;}
+footer a{color:var(--gold3);}
+
+@media(max-width:600px){
+  .nav-right .nav-link{display:none;}
+  .steps{grid-template-columns:1fr;}
+  .pc-grid{grid-template-columns:1fr;}
+  .card-actions{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand"><span>Ask</span> Lewin</div>
+  <div class="nav-right">
+    <a href="#how" class="nav-link">How it works</a>
+    <a href="mailto:lewin.craig-corbett@knightfrank.com" class="nav-cta">Get in touch</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Knight Frank Fulham · SW6 Specialist · AI Property Search</div>
+    <h1>Ask me anything<br/>about <span class="italic">Fulham</span>.</h1>
+    <p class="hero-sub">Describe what you want in plain English. Real listings, honest commentary, direct Rightmove links — and I'll tell you if your budget doesn't match your brief.</p>
+    <div class="search-wrap">
+      <textarea id="brief" rows="2" placeholder="4 bed house under £2.5m, south-facing garden, quiet street, 10 min walk to Parsons Green tube…" maxlength="400"></textarea>
+      <button class="go-btn" id="goBtn" onclick="runSearch()" aria-label="Search">→</button>
+    </div>
+    <div class="chips">
+      <button class="chip" onclick="fill('4 bed house under £2.5m, south-facing garden, quiet street, close to Parsons Green tube')">Family house · Parsons Green</button>
+      <button class="chip" onclick="fill('5 bed house under £3.5m, large garden, freehold, chain free preferred')">5 bed · max quality</button>
+      <button class="chip" onclick="fill('Best house I can get for £2m in SW6, must have a garden, freehold')">Best value for £2m</button>
+      <button class="chip" onclick="fill('4 bed house, completely renovated, turn-key, no work needed, SW6')">Turn-key · move straight in</button>
+      <button class="chip" onclick="fill('Something really special in Fulham up to £4m, wow factor property')">Something special · £4m</button>
+    </div>
+    <div class="scroll-hint">↓ results appear below</div>
+  </div>
+</section>
+
+<section class="results-section" id="results"></section>
+
+<section class="how" id="how">
+  <div class="section-eyebrow">The difference</div>
+  <h2 class="section-title">Why Ask Lewin, not Rightmove?</h2>
+  <p class="section-sub">Portals know your filters. I know the streets, the service charges, the neighbours, and which ones to avoid.</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><h3>Describe your life</h3><p>Tell me what matters — school catchment, commute, garden, quiet street. No tick boxes. Plain English.</p></div>
+    <div class="step"><div class="step-num">2</div><h3>AI matches, I annotate</h3><p>Every match comes with honest commentary, a photo, and a direct link to the Rightmove listing — plus a budget reality check if needed.</p></div>
+    <div class="step"><div class="step-num">3</div><h3>Off-market access</h3><p>Register and I'll share pre-market SW6 properties that never hit the portals. That's the real edge.</p></div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-card">
+    <div class="avatar">L</div>
+    <div class="about-name">Lewin Craig-Corbett</div>
+    <div class="about-title">Associate · Knight Frank Fulham · 10+ years in SW6</div>
+    <p class="about-quote">"I built this because the right home in Fulham isn't about filters. It's about knowing that <em>Linver Road has blossom trees in spring</em>, that <em>Chiddingstone Street schools are 4 minutes away</em>, and that <em>Dawes Road is about to change</em>. That's what I know. Ask me."</p>
+    <h3 class="capture-title">Get off-market access</h3>
+    <p class="capture-sub">Pre-market and off-market SW6 properties — sent to you before they hit Rightmove.</p>
+    <div class="capture-form">
+      <input type="email" id="captureEmail" placeholder="your@email.com"/>
+      <button onclick="submitCapture()">Register →</button>
+    </div>
+    <div class="capture-note" id="captureNote">Your details go directly to Lewin — no third parties, no mailing lists.</div>
+    <div class="capture-success" id="captureSuccess">Done — I'll be in touch when something relevant comes up.</div>
+  </div>
+</section>
+
+<footer>
+  Live Knight Frank Fulham listings · AI scoring matches your brief and is not a formal valuation or advice<br/>
+  Sold STC properties may no longer be available — always verify current status with the agent<br/><br/>
+  <a href="mailto:lewin.craig-corbett@knightfrank.com">lewin.craig-corbett@knightfrank.com</a> ·
+  <a href="tel:02038738396">020 3873 8396</a> · Knight Frank, 203 New Kings Road, London SW6 4SR
+</footer>
+
+<script>
+const briefEl = document.getElementById('brief');
+const goBtn = document.getElementById('goBtn');
+
+briefEl.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); runSearch(); }});
+function fill(t) { briefEl.value = t; briefEl.focus(); }
+
+function fmt(p) {
+  if (p >= 1000000) return '£' + (p/1000000).toFixed(2).replace(/\.?0+$/,'').replace(/(\.\d)$/,'$10') + 'm';
+  return '£' + p.toLocaleString();
+}
+function sc(s) { return s >= 75 ? 'hi' : s >= 55 ? 'md' : 'lo'; }
+
+async function runSearch() {
+  const brief = briefEl.value.trim();
+  if (!brief) return;
+  goBtn.disabled = true; briefEl.disabled = true;
+  const resultsEl = document.getElementById('results');
+  resultsEl.innerHTML = `<div class="loading-state"><div class="spinner"></div><div class="load-label">Searching live Knight Frank listings…</div><div class="load-brief">"${brief}"</div></div>`;
+  resultsEl.scrollIntoView({ behavior:'smooth', block:'start' });
+
+  try {
+    const res = await fetch('/api/match', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ brief }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Search failed');
+    renderResults(brief, data);
+  } catch(err) {
+    resultsEl.innerHTML = `<div class="error-state"><p>${err.message || 'Something went wrong — please try again.'}</p><button onclick="resetSearch()">Try again</button></div>`;
+  } finally {
+    goBtn.disabled = false; briefEl.disabled = false;
+  }
+}
+
+function renderResults(brief, data) {
+  const { matches, budgetWarning, total } = data;
+
+  let html = `
+    <div class="brief-bar"><div class="bl">Your brief</div><div class="bt">${brief}</div></div>`;
+
+  if (budgetWarning) {
+    html += `<div class="budget-warning"><div class="bw-icon">💡</div><div class="bw-text"><strong>Budget reality check</strong>${budgetWarning}</div></div>`;
+  }
+
+  html += `<div class="results-head"><span class="results-count">${matches.length} match${matches.length!==1?'es':''} · ${total} live listings searched</span><button class="reset-btn" onclick="resetSearch()">↺ New search</button></div>`;
+
+  matches.forEach(m => {
+    const l = m.listing;
+    const rmUrl = `https://www.rightmove.co.uk/properties/${m.id}`;
+    const sub = encodeURIComponent(`Enquiry — ${l.street}, SW6`);
+    const body = encodeURIComponent(`Hi Lewin,\n\nI found ${l.street} via Ask Lewin and would like to know more.\n\nMy brief: ${brief}`);
+    const stc = l.status==='stc' ? '<span class="badge-stc">Sold STC</span>' : '';
+    const red = l.reduced&&l.status!=='stc' ? '<span class="badge-red">Reduced</span>' : '';
+    const pros = (m.pros||[]).map(p=>`<div class="pc-item">${p}</div>`).join('');
+    const cons = (m.cons||[]).map(c=>`<div class="pc-item">${c}</div>`).join('');
+
+    const imgHtml = l.img
+      ? `<img class="card-img" src="${l.img}" alt="${l.street}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'card-img-placeholder\\'>${l.street}</div>'">`
+      : `<div class="card-img-placeholder">${l.street}</div>`;
+
+    html += `
+      <div class="listing-card">
+        ${imgHtml}
+        <div class="card-top">
+          <div class="score-ring ${sc(m.score)}">${m.score}%</div>
+          <div class="card-info">
+            <div class="card-street">${l.street}${stc}${red}</div>
+            <div class="card-hl">${m.headline}</div>
+          </div>
+          <div class="card-price">${fmt(l.price)}</div>
+        </div>
+        <div class="card-body">
+          <div class="card-specs">
+            <span>${l.beds} bed · ${l.type}</span>
+            <span>${l.baths} bath</span>
+            <span>${l.area}</span>
+          </div>
+          <div class="pc-grid">
+            <div class="pc-box pros"><div class="pc-label">Works for you</div>${pros}</div>
+            <div class="pc-box cons"><div class="pc-label">Look out for</div>${cons}</div>
+          </div>
+          <div class="verdict">"${m.verdict}"</div>
+          <div class="card-actions">
+            <a class="btn-rm" href="${rmUrl}" target="_blank" rel="noopener">↗ View on Rightmove</a>
+            <button class="btn-lewin" onclick="window.open('mailto:lewin.craig-corbett@knightfrank.com?subject=${sub}&body=${body}','_blank')">Ask Lewin →</button>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  html += `
+    <div class="about-card" style="margin-top:24px;padding:24px;text-align:center;background:var(--card);border:0.5px solid var(--line);border-radius:14px;">
+      <h3 style="font-family:var(--serif);font-size:19px;font-weight:400;margin-bottom:8px;">Want to see what's not on Rightmove yet?</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:18px;">Pre-market and off-market SW6 properties — sent to you before they hit the portals.</p>
+      <div class="capture-form">
+        <input type="email" id="captureEmail2" placeholder="your@email.com"/>
+        <button onclick="submitCapture2()">Register →</button>
+      </div>
+      <div class="capture-note" id="cn2">No spam. Your details go directly to Lewin.</div>
+    </div>`;
+
+  document.getElementById('results').innerHTML = html;
+}
+
+function resetSearch() {
+  briefEl.value = '';
+  document.getElementById('results').innerHTML = '';
+  window.scrollTo({ top: 0, behavior:'smooth' });
+  briefEl.focus();
+}
+
+async function submitCapture() {
+  const email = document.getElementById('captureEmail').value.trim();
+  const brief = briefEl.value.trim() || null;
+  if (!email || !email.includes('@')) { document.getElementById('captureNote').textContent = 'Please enter a valid email.'; return; }
+  try { await fetch('/api/notify', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, brief }) }); } catch(_) {}
+  document.getElementById('captureSuccess').style.display = 'block';
+  document.getElementById('captureNote').style.display = 'none';
+  document.getElementById('captureEmail').disabled = true;
+}
+
+async function submitCapture2() {
+  const email = document.getElementById('captureEmail2').value.trim();
+  if (!email || !email.includes('@')) { document.getElementById('cn2').textContent = 'Please enter a valid email.'; return; }
+  try { await fetch('/api/notify', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email }) }); } catch(_) {}
+  document.getElementById('cn2').textContent = "Done — I'll be in touch with off-market opportunities.";
+  document.getElementById('captureEmail2').disabled = true;
+}
+</script>
+</body>
+</html>
