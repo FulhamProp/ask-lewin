@@ -52,13 +52,21 @@ h1 .italic{font-style:italic;color:var(--gold2);}
 
 /* SEARCH */
 .search-wrap{position:relative;max-width:580px;margin:0 auto;}
-.search-wrap textarea{width:100%;padding:20px 60px 20px 24px;font-family:var(--sans);font-size:16px;line-height:1.55;background:rgba(26,23,20,.85);border:1.5px solid rgba(200,168,106,.25);border-radius:20px;color:var(--cream);outline:none;resize:none;min-height:72px;backdrop-filter:blur(10px);transition:border-color .25s;}
-.search-wrap textarea::placeholder{color:rgba(244,238,226,.32);}
+.search-input-shell{position:relative;}
+.search-wrap textarea{position:relative;z-index:2;width:100%;padding:20px 60px 20px 24px;font-family:var(--sans);font-size:16px;line-height:1.55;background:rgba(26,23,20,.85);border:1.5px solid rgba(200,168,106,.25);border-radius:20px;color:var(--cream);outline:none;resize:none;min-height:72px;backdrop-filter:blur(10px);transition:border-color .25s;}
+.search-wrap textarea::placeholder{color:transparent;}
 .search-wrap textarea:focus{border-color:var(--gold);}
 .search-wrap textarea:disabled{opacity:.4;}
-.go-btn{position:absolute;right:12px;bottom:12px;width:40px;height:40px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;color:var(--bg);font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;}
+.ghost-overlay{position:absolute;top:0;left:0;right:0;z-index:1;padding:20px 60px 20px 24px;font-family:var(--sans);font-size:16px;line-height:1.55;color:rgba(244,238,226,.32);pointer-events:none;white-space:pre-wrap;}
+.ghost-overlay .cursor{display:inline-block;width:1px;height:18px;background:var(--gold3);margin-left:1px;vertical-align:-3px;animation:blink 1s step-end infinite;}
+@keyframes blink{50%{opacity:0;}}
+.go-btn{position:absolute;right:12px;bottom:12px;width:40px;height:40px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;color:var(--bg);font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;z-index:3;}
 .go-btn:hover{background:var(--gold2);transform:scale(1.05);}
 .go-btn:disabled{opacity:.3;cursor:not-allowed;transform:none;}
+.search-meta{display:flex;justify-content:space-between;align-items:center;max-width:580px;margin:10px auto 0;padding:0 4px;font-size:11px;color:rgba(244,238,226,.35);}
+.live-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--green);margin-right:6px;box-shadow:0 0 0 0 rgba(111,148,112,.5);animation:pulse 2s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(111,148,112,.4);}70%{box-shadow:0 0 0 5px rgba(111,148,112,0);}100%{box-shadow:0 0 0 0 rgba(111,148,112,0);}}
+.search-meta strong{color:rgba(244,238,226,.55);font-weight:600;}
 .chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:16px;max-width:580px;margin-left:auto;margin-right:auto;}
 .chip{font-size:12px;padding:6px 14px;border-radius:20px;border:0.5px solid rgba(200,168,106,.2);color:rgba(244,238,226,.5);cursor:pointer;background:transparent;font-family:var(--sans);transition:border-color .2s,color .2s;}
 .chip:hover{border-color:var(--gold);color:var(--gold2);}
@@ -179,17 +187,24 @@ footer a{color:var(--gold3);}
 <section class="hero">
   <div class="hero-inner">
     <div class="eyebrow">Knight Frank Fulham · SW6 Specialist · AI Property Search</div>
-    <h1>Ask me anything<br/>about <span class="italic">Fulham</span>.</h1>
-    <p class="hero-sub">Describe what you want in plain English. Real listings, honest commentary, direct Rightmove links — and I'll tell you if your budget doesn't match your brief.</p>
+    <h1>Describe your next home.<br/><span class="italic">I'll find it.</span></h1>
+    <p class="hero-sub">Describe your ideal home in plain English. I'll match it to live Knight Frank listings — and tell you honestly if your budget doesn't add up.</p>
     <div class="search-wrap">
-      <textarea id="brief" rows="2" placeholder="4 bed house under £2.5m, south-facing garden, quiet street, 10 min walk to Parsons Green tube…" maxlength="400"></textarea>
-      <button class="go-btn" id="goBtn" onclick="runSearch()" aria-label="Search">→</button>
+      <div class="search-input-shell">
+        <div class="ghost-overlay" id="ghostOverlay"></div>
+        <textarea id="brief" rows="2" placeholder="" maxlength="400"></textarea>
+        <button class="go-btn" id="goBtn" onclick="runSearch()" aria-label="Search">→</button>
+      </div>
+      <div class="search-meta">
+        <span><span class="live-dot"></span>Searching <strong id="liveCount">142</strong> live SW6 listings</span>
+        <span>Knight Frank Fulham</span>
+      </div>
     </div>
     <div class="chips">
-      <button class="chip" onclick="fill('4 bed house under £2.5m, south-facing garden, quiet street, close to Parsons Green tube')">Family house · Parsons Green</button>
-      <button class="chip" onclick="fill('5 bed house under £3.5m, large garden, freehold, chain free preferred')">5 bed · max quality</button>
-      <button class="chip" onclick="fill('Best house I can get for £2m in SW6, must have a garden, freehold')">Best value for £2m</button>
-      <button class="chip" onclick="fill('4 bed house, completely renovated, turn-key, no work needed, SW6')">Turn-key · move straight in</button>
+      <button class="chip" onclick="fill('Quiet street, walk to a good primary school, SW6')">Quiet street, walk to a good primary school</button>
+      <button class="chip" onclick="fill('Garden, room to work from home, under £1.8m')">Garden, room to work from home, under £1.8m</button>
+      <button class="chip" onclick="fill('Move-in ready, no chain, near Eel Brook Common')">Move-in ready, no chain, near Eel Brook Common</button>
+      <button class="chip" onclick="fill('Best value house I can get for £2m, freehold, garden')">Best value for £2m</button>
       <button class="chip" onclick="fill('Something really special in Fulham up to £4m, wow factor property')">Something special · £4m</button>
     </div>
     <div class="scroll-hint">↓ results appear below</div>
@@ -236,9 +251,48 @@ footer a{color:var(--gold3);}
 <script>
 const briefEl = document.getElementById('brief');
 const goBtn = document.getElementById('goBtn');
+const ghostOverlay = document.getElementById('ghostOverlay');
+const liveCountEl = document.getElementById('liveCount');
 
 briefEl.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); runSearch(); }});
-function fill(t) { briefEl.value = t; briefEl.focus(); }
+function fill(t) { briefEl.value = t; ghostOverlay.style.display = 'none'; briefEl.focus(); }
+
+/* ---- Ghost-text cycling examples ---- */
+const ghostExamples = [
+  "4 bed house under £2.5m, south-facing garden, quiet street, 10 min walk to Parsons Green tube…",
+  "family house near Eel Brook Common, garden, under £1.8m…",
+  "quiet street, 4 minutes from a good primary school…",
+  "turn-key flat, move straight in, no chain…",
+  "something special on Peterborough Road, £4m budget…"
+];
+let ghostIndex = 0, ghostChar = 0, ghostDeleting = false;
+function ghostTypeLoop() {
+  if (briefEl.value.length > 0) { ghostOverlay.style.display = 'none'; setTimeout(ghostTypeLoop, 400); return; }
+  ghostOverlay.style.display = 'block';
+  const current = ghostExamples[ghostIndex];
+  if (!ghostDeleting) {
+    ghostChar++;
+    if (ghostChar > current.length) { ghostDeleting = true; renderGhost(current); setTimeout(ghostTypeLoop, 1400); return; }
+  } else {
+    ghostChar--;
+    if (ghostChar < 0) { ghostDeleting = false; ghostIndex = (ghostIndex + 1) % ghostExamples.length; ghostChar = 0; }
+  }
+  renderGhost(current);
+  setTimeout(ghostTypeLoop, ghostDeleting ? 18 : 38);
+}
+function renderGhost(current) {
+  const shown = current.slice(0, Math.max(ghostChar, 0));
+  ghostOverlay.innerHTML = shown + '<span class="cursor"></span>';
+}
+briefEl.addEventListener('input', () => { ghostOverlay.style.display = briefEl.value.length ? 'none' : 'block'; });
+ghostTypeLoop();
+
+/* ---- Live count gentle drift (cosmetic only — does not affect search) ---- */
+setInterval(() => {
+  const base = 142;
+  const drift = Math.floor(Math.random() * 5) - 2;
+  liveCountEl.textContent = base + drift;
+}, 8000);
 
 function fmt(p) {
   if (p >= 1000000) return '£' + (p/1000000).toFixed(2).replace(/\.?0+$/,'').replace(/(\.\d)$/,'$10') + 'm';
@@ -341,6 +395,7 @@ function renderResults(brief, data) {
 
 function resetSearch() {
   briefEl.value = '';
+  ghostOverlay.style.display = 'block';
   document.getElementById('results').innerHTML = '';
   window.scrollTo({ top: 0, behavior:'smooth' });
   briefEl.focus();
