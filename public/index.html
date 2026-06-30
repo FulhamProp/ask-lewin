@@ -7,7 +7,7 @@
 <meta name="description" content="Describe your ideal SW6 home in plain English. AI matches you to real Knight Frank Fulham listings with honest commentary and direct Rightmove links."/>
 <meta property="og:title" content="Ask Lewin — Find Your Perfect Fulham Home"/>
 <meta property="og:description" content="Skip the portal. Describe what you want — matched to real Knight Frank SW6 listings with honest commentary."/>
-<meta property="og:image" content="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80"/>
+<meta property="og:image" content="https://ask-lewin.onrender.com/hero-parsons-green.jpg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
 <style>
@@ -39,9 +39,9 @@ a{color:inherit;text-decoration:none;}
   position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;
   padding:80px 24px 60px;
   background:
-    linear-gradient(180deg,rgba(14,12,10,.25) 0%,rgba(14,12,10,.65) 55%,rgba(14,12,10,1) 100%),
-    url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1800&q=80&auto=format&fit=crop')
-    center 40%/cover no-repeat;
+    linear-gradient(180deg,rgba(14,12,10,.55) 0%,rgba(14,12,10,.82) 55%,rgba(14,12,10,1) 100%),
+    url('/hero-parsons-green.jpg')
+    center 38%/cover no-repeat;
 }
 .hero-inner{max-width:700px;margin:0 auto;width:100%;text-align:center;}
 .eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;display:flex;align-items:center;justify-content:center;gap:10px;}
@@ -52,12 +52,12 @@ h1 .italic{font-style:italic;color:var(--gold2);}
 
 /* SEARCH */
 .search-wrap{position:relative;max-width:580px;margin:0 auto;}
-.search-input-shell{position:relative;}
-.search-wrap textarea{position:relative;z-index:2;width:100%;padding:20px 60px 20px 24px;font-family:var(--sans);font-size:16px;line-height:1.55;background:rgba(26,23,20,.85);border:1.5px solid rgba(200,168,106,.25);border-radius:20px;color:var(--cream);outline:none;resize:none;min-height:72px;backdrop-filter:blur(10px);transition:border-color .25s;}
+.search-input-shell{position:relative;background:rgba(10,8,7,.92);border:1.5px solid rgba(200,168,106,.32);border-radius:20px;backdrop-filter:blur(14px);box-shadow:0 8px 32px rgba(0,0,0,.45);transition:border-color .25s;}
+.search-input-shell:focus-within{border-color:var(--gold);}
+.search-wrap textarea{position:relative;z-index:2;width:100%;padding:20px 60px 20px 24px;font-family:var(--sans);font-size:16px;line-height:1.55;background:transparent;border:none;color:var(--cream);outline:none;resize:none;min-height:72px;}
 .search-wrap textarea::placeholder{color:transparent;}
-.search-wrap textarea:focus{border-color:var(--gold);}
 .search-wrap textarea:disabled{opacity:.4;}
-.ghost-overlay{position:absolute;top:0;left:0;right:0;z-index:1;padding:20px 60px 20px 24px;font-family:var(--sans);font-size:16px;line-height:1.55;color:rgba(244,238,226,.32);pointer-events:none;white-space:pre-wrap;}
+.ghost-overlay{position:absolute;top:0;left:0;right:0;z-index:1;padding:20px 60px 20px 24px;font-family:var(--sans);font-size:16px;line-height:1.55;color:rgba(244,238,226,.4);pointer-events:none;white-space:pre-wrap;}
 .ghost-overlay .cursor{display:inline-block;width:1px;height:18px;background:var(--gold3);margin-left:1px;vertical-align:-3px;animation:blink 1s step-end infinite;}
 @keyframes blink{50%{opacity:0;}}
 .go-btn{position:absolute;right:12px;bottom:12px;width:40px;height:40px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;color:var(--bg);font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;z-index:3;}
